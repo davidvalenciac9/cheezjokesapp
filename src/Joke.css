@@ -1,3 +1,42 @@
 .Joke {
     font-size: 1em;
+    background-color: greenyellow;
+    border-bottom: 1px solid gray;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding-right: 5%;
+    padding-bottom: 1.5%;
+    padding-top: 1.5%;
+}
+
+.joke-text {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 5%;
+    text-align: left;
+}
+
+.score {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 5%;
+}
+
+.score-display {
+    background-color: gray;
+    border-radius: 100%;
+    font-size: 1.5em;
+    padding: 5px 5px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fas {
+    margin: 0 9px;
+    cursor: pointer;
 }
