@@ -1,7 +1,7 @@
 .Joke {
     font-size: 1em;
-    background-color: tomato;
-    border-bottom: 1px solid gray;
+    background-color: white;
+    border-bottom: 1px solid rgba(200,200,200,0.5);
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -24,16 +24,17 @@
 }
 
 .score-display {
-    background-color: gray;
+    background-color: rgba(255,255,255,1);
     border-radius: 100%;
-    font-size: 1.5em;
+    font-size: 1.4em;
     padding: 5px 5px;
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 2px 3px 5px -2px rgba(0,0,0,0.60);
 }
 
 .fas {

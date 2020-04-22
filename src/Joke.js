@@ -18,12 +18,28 @@ export class Joke extends Component {
   }
 
   render () {
+    let borderColor;
+
+    if (this.props.score === 0) {
+      borderColor = 'gray';
+    } else if (this.props.score > 0) {
+      borderColor = 'orange';
+    } else {
+      borderColor = 'red';
+    }
+
+    let styleScoreDisplay = {
+      border: `3px solid ${borderColor}`,
+    };
+
     return (
       <div className="Joke">
         <div className="score">
           <i onClick={this.upVote} className="fas fa-arrow-up" />
           {/*Displaying Score*/}
-          <span className="score-display">{this.props.score}</span>
+          <span className="score-display" style={styleScoreDisplay}>
+            {this.props.score}
+          </span>
           <i onClick={this.downVote} className="fas fa-arrow-down" />
         </div>
         <div className="joke-text">{this.props.joke}</div>
