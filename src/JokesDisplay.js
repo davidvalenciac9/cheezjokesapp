@@ -51,7 +51,10 @@ export class JokesDisplay extends Component {
   //End of UpVote and DownVote handlers
 
   render () {
-    const joke = this.state.jokesList.map (j => {
+    const sortedJokes = this.state.jokesList.sort (
+      (a, b) => (a.score > b.score ? -1 : 1)
+    );
+    const joke = sortedJokes.map (j => {
       return (
         <Joke
           joke={j.joke}

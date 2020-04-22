@@ -1,6 +1,6 @@
 .Joke {
     font-size: 1em;
-    background-color: greenyellow;
+    background-color: tomato;
     border-bottom: 1px solid gray;
     display: flex;
     flex-direction: row;
