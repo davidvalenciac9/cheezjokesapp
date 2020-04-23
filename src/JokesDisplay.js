@@ -13,7 +13,7 @@ export class JokesDisplay extends Component {
     this.state = {jokesList: []};
     this.upVote = this.upVote.bind (this);
     this.downVote = this.downVote.bind (this);
-    //this.LoadMoreJokes = this.LoadMoreJokes.bind (this);
+    this.LoadMoreJokes = this.LoadMoreJokes.bind (this);
   }
 
   /******* Loading first 10 jokes from page 1
@@ -37,13 +37,26 @@ export class JokesDisplay extends Component {
 
   async componentDidMount () {
     let jokesArray = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; ) {
       let response = await axios.get (API_URL, {
         headers: {Accept: 'application/json'},
       });
-      jokesArray.push (response.data);
+
+      //Comparing each element in jokes array with the joke of each new response that will return -1 or 0 if it exists
+      let cleanArray = jokesArray.findIndex (
+        x => x.joke === response.data.joke
+      );
+
+      //if the comparaison returns -1 I push with spread the new object into the jokesArray
+      if (cleanArray === -1) {
+        jokesArray = [...jokesArray, response.data];
+
+        //incrementing for loop variable inside the conditional so the code runs until we reach 10 new jokes
+        i++;
+      } else {
+        console.log ('joke already exists');
+      }
       response.data.score = 0;
-      console.log (jokesArray);
     }
 
     this.setState (st => ({
@@ -52,20 +65,32 @@ export class JokesDisplay extends Component {
   }
 
   //Handling button to load more jokes, may move it to a separate component later
-  /* async LoadMoreJokes () {
-    let newResponse = await axios.get (`${API_URL}2`, {
-      headers: {Accept: 'application/json'},
-    });
-    let newResults = newResponse.data.results;
-    newResults.forEach (r => {
-      r.score = 0;
-    });
+  async LoadMoreJokes () {
+    //Important!!! This time jokesArray has to be the State array or I will lose already loaded jokes.
+    let jokesArray = this.state.jokesList;
+
+    for (let i = 0; i < 10; ) {
+      let response = await axios.get (API_URL, {
+        headers: {Accept: 'application/json'},
+      });
+      let cleanArray = jokesArray.findIndex (
+        x => x.joke === response.data.joke
+      );
+
+      if (cleanArray === -1) {
+        jokesArray = [...jokesArray, response.data];
+        i++;
+      } else {
+        console.log ('joke already exists');
+      }
+      response.data.score = 0;
+    }
 
     this.setState (st => ({
-      jokesList: [...st.jokesList, ...newResults],
+      jokesList: jokesArray,
     }));
   }
- */
+
   //UpVote and DownVote handlers
   //Seting State creating a new array with map, looking for a matching id and +/- 1 to current score
 
@@ -107,7 +132,7 @@ export class JokesDisplay extends Component {
       <div className="JokesDisplay">
         {joke}
         {/*<SideBar />*/}
-        {/* <button onClick={this.LoadMoreJokes}>Load More Jokes</button> */}
+        <button onClick={this.LoadMoreJokes}>Load More Jokes</button>
       </div>
     );
   }
